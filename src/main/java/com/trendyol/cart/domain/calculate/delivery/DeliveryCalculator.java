@@ -12,9 +12,9 @@ public class DeliveryCalculator {
 
     private final BigDecimal fixedCost;
 
-    private final BigDecimal perDelivery;
+    private final BigDecimal deliveryCost;
 
-    private final BigDecimal perProduct;
+    private final BigDecimal productCost;
 
     public BigDecimal calculateDeliveryCost(ShoppingCart shoppingCart) {
         return calculatePerDelivery(shoppingCart).add(calculatePerProducts(shoppingCart)).add(fixedCost);
@@ -26,11 +26,11 @@ public class DeliveryCalculator {
                 .map(Product::getCategory)
                 .distinct().count();
 
-        return perDelivery.multiply(new BigDecimal(categorySize));
+        return deliveryCost.multiply(new BigDecimal(categorySize));
     }
 
     public BigDecimal calculatePerProducts(ShoppingCart shoppingCart) {
-        return perProduct.multiply(new BigDecimal(shoppingCart.getItems().size()));
+        return productCost.multiply(new BigDecimal(shoppingCart.getItems().size()));
     }
 
 
